@@ -1,7 +1,7 @@
 import unittest
 
 from textnode import TextNode, TextType, text_node_to_html_node
-
+from splitdelimiter import *
 
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
@@ -33,6 +33,25 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(html_node.tag, "code")
         self.assertEqual(html_node.value, "Epic test")
 
+    def test_delimiter(self):
+        input_nodes = [TextNode("This is **bold** text", TextType.TEXT)]
+        result = split_nodes_delimiter(input_nodes, "**", TextType.BOLD)
+
+        expected = [
+            TextNode("This is ", TextType.TEXT),
+            TextNode("bold", TextType.BOLD),
+            TextNode(" text", TextType.TEXT),
+        ]
+
+        self.assertEqual(result, expected)
 
 if __name__ == "__main__":
     unittest.main()
+
+
+
+
+
+
+
+
